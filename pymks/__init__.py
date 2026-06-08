@@ -13,7 +13,7 @@ except ImportError:
 
 import os
 
-from ._version import get_versions
+from importlib.metadata import version, PackageNotFoundError
 
 from .fmks.data.cahn_hilliard import solve_cahn_hilliard
 from .fmks.plot import plot_microstructures
@@ -69,8 +69,10 @@ def test(*args):
     pytest.main(args=[path, "--doctest-modules", "-r s"] + list(args))
 
 
-__version__ = get_versions()["version"]
-del get_versions
+try:
+    __version__ = version("pymks")
+except PackageNotFoundError:  # pragma: no cover
+    __version__ = "unknown"
 
 __all__ = [
     "__version__",
