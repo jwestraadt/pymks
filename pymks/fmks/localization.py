@@ -113,7 +113,7 @@ def fit_fourier(fx_data, fy_data, redundancy_func):
     return pipe(
         fmap(lstsq_mks_, np.ndindex(fx_data.shape[1:-1])),
         list,
-        array_from_tuple(shape=fx_data.shape[1:], dtype=np.complex),
+        array_from_tuple(shape=fx_data.shape[1:], dtype=complex),
     )
 
 
@@ -409,6 +409,10 @@ class ReshapeTransformer(BaseEstimator, TransformerMixin):
         """Only necessary to make pipelines work"""
         return self
 
+    def __sklearn_is_fitted__(self):
+        """Stateless transformer; always reports as fitted."""
+        return True
+
 
 class LocalizationRegressor(BaseEstimator, RegressorMixin):
     """Perform the localization in Sklearn pipelines
@@ -465,6 +469,10 @@ class LocalizationRegressor(BaseEstimator, RegressorMixin):
         y_data_da = rechunk(x_data.chunks[:-1], y_data_reshape)
         self.coeff = fit_disc(x_data, y_data_da, self.redundancy_func)
         return self
+
+    def __sklearn_is_fitted__(self):
+        """Fitted once the coefficients have been computed."""
+        return self.coeff is not None
 
     def predict(self, x_data):
         """Predict the data
