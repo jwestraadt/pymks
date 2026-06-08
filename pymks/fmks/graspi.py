@@ -301,3 +301,7 @@ class GraphDescriptors(BaseEstimator, TransformerMixin):
     def fit(self, *_):
         """Only necessary to make pipelines work"""
         return self
+
+    def __sklearn_is_fitted__(self):
+        """Stateless transformer; always reports as fitted."""
+        return True

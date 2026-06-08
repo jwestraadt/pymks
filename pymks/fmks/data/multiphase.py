@@ -60,7 +60,8 @@ def quantile_ndim(arr, quantiles):
     """
     return pipe(
         zip(arr, quantiles),
-        fmap(lambda x: np.quantile(*x, axis=-1, interpolation="nearest").T),
+        fmap(lambda x: np.quantile(*x, axis=-1, method="nearest").T),
+        list,
         np.stack,
     )
 
