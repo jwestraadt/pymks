@@ -26,6 +26,7 @@ from .fmks.data.delta import generate_delta
 from .fmks.data.multiphase import generate_multiphase
 from .fmks.correlations import FlattenTransformer
 from .fmks.correlations import TwoPointCorrelation
+from .fmks.reducers import tsne, TSNETransformer
 from .fmks.data.checkerboard import generate_checkerboard
 from .fmks.pair_correlations import paircorr_from_twopoint
 from .fmks import GenericTransformer
@@ -101,4 +102,6 @@ __all__ = [
     "correlations_multiple",
     "graph_descriptors",
     "GraphDescriptors",
+    "tsne",
+    "TSNETransformer",
 ]

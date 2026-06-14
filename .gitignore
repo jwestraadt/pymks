@@ -164,3 +164,6 @@ ENV/
 
 domain.vtk
 dask-worker-space
+
+# Local experimental data + notebook (never commit)
+notebooks/data/R65/
