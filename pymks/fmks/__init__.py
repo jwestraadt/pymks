@@ -10,8 +10,8 @@ primarily using the [Toolz](http://toolz.readthedocs.io) library.
 """
 
 import os
+from importlib.metadata import version, PackageNotFoundError
 import pytest
-from pkg_resources import get_distribution, DistributionNotFound
 from sklearn.base import TransformerMixin, BaseEstimator
 
 
@@ -27,19 +27,16 @@ def test():  # pragma: no cover
 
 
 def get_version() -> str:
-    """Get the version of the code from egg_info.
+    """Get the installed package version.
 
     Returns:
       the package version number
     """
 
     try:
-        # pylint: disable=no-member
-        version = get_distribution(__name__.split(".", maxsplit=1)[0]).version
-    except DistributionNotFound:  # pragma: no cover
-        version = "unknown, try running `python setup.py egg_info`"
-
-    return version
+        return version(__name__.split(".", maxsplit=1)[0])
+    except PackageNotFoundError:  # pragma: no cover
+        return "unknown, try running `pip install -e .`"
 
 
 __version__ = get_version()

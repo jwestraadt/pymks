@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymks"
+dynamic = ["version"]
+description = "Materials Knowledge Systems in Python (PyMKS)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE.md" }
+authors = [{ name = "Daniel Wheeler", email = "daniel.wheeler2@gmail.com" }]
+dependencies = [
+    "numpy",
+    "scipy",
+    "dask",
+    "toolz",
+    "scikit-learn",
+    "matplotlib",
+    "pandas",
+    "Deprecated",
+]
+
+[project.urls]
+homepage = "https://github.com/materialsinnovation/pymks"
+
+[project.optional-dependencies]
+# Optional FFT acceleration; the pyfftw import is already guarded in pymks/__init__.py
+fftw = ["pyfftw"]
+
+# PEP 735 dependency group, installed by `uv sync` by default. Mirrors the conda
+# dev environment in environment.yml. graspi is intentionally omitted (not on PyPI).
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "nbval",
+    "coverage",
+    "sfepy",
+    "dask-ml",
+    "notebook",
+    "graphviz",
+]
+
+[tool.setuptools.packages.find]
+include = ["pymks*"]
+
+[tool.setuptools.package-data]
+"*" = ["tests/*.py"]
+
+[tool.setuptools_scm]
+# Used when no git tag / no .git is available (e.g. building from an sdist).
+fallback_version = "0.4.1"
+
+[tool.pytest.ini_options]
+testpaths = ["pymks/fmks", "notebooks"]
+addopts = "--doctest-modules --ignore=setup.py --ignore=sandbox -r s --cov-config .coveragerc --cov=pymks/fmks --cov-report term-missing --nbval --sanitize-with notebooks/sanitize.cfg --no-cov-on-fail"
+
+[tool.coverage.run]
+omit = ["pymks/bases/*"]

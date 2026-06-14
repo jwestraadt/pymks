@@ -69,6 +69,23 @@ tracker](https://github.com/materialsinnovation/pymks/issues).
 
 ## Installation
 
+### uv (development)
+
+PyMKS uses [uv](https://docs.astral.sh/uv/) for development. Clone this
+repository and run
+
+    $ uv sync
+
+in the base directory to create a virtual environment with all the
+runtime and development dependencies. Run commands inside it with `uv
+run`, for example
+
+    $ uv run python -c "import pymks; print(pymks.__version__)"
+    $ uv run pytest pymks/fmks
+
+Note: `graspi` (used by the graph descriptors) is not on PyPI, so that
+feature is unavailable in a uv environment; use Nix or Conda for it.
+
 ### Conda
 
 To install using [Conda][conda],
@@ -79,7 +96,7 @@ To create a development environment clone this repository and run
 
     $ conda env create -f environment.yml
     $ conda activate pymks
-    $ python setup.py develop
+    $ pip install -e .
 
 in the base directory.
 

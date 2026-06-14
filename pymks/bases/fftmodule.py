@@ -30,35 +30,24 @@ is used. If `PYMKS_USE_FFTW` is unavailable and `use-fftw` is set to
 false or is unavailable, then Numpy's fft module is used.
 
 """
-import configparser
 import os
 
 import numpy.fft as numpy_fft
 import numpy as np
-from pkg_resources import resource_string
 from ..fmks.func import deprecate
 
 @deprecate
 def config_use_pyfftw():
-    """Determine the value of `use-fftw` in setup.cfg.
+    """Whether PyFFTW is requested via configuration.
+
+    The legacy ``[pymks] use-fftw`` flag in ``setup.cfg`` is no longer shipped
+    with the package, so this always returns ``False`` (matching the historical
+    default). Use the ``PYMKS_USE_FFTW`` environment variable to select PyFFTW.
 
     Returns:
-      boolean value based on `use-fftw` in setup.cfg
+      always ``False``
     """
-    try:
-        FileNotFoundError
-    except NameError:
-        FileNotFoundError = IOError
-    try:
-        config_string = resource_string('pymks', '../setup.cfg').decode('utf-8')
-    except FileNotFoundError:
-        return False
-    parser = configparser.ConfigParser()
-    parser.read_string(config_string)
-    if parser.has_option('pymks', 'use-fftw'):
-        return parser.getboolean('pymks', 'use-fftw')
-    else:
-        return False
+    return False
 
 @deprecate
 def env_use_pyfftw():
