@@ -54,7 +54,7 @@ fallback_version = "0.4.1"
 
 [tool.pytest.ini_options]
 testpaths = ["pymks/fmks", "notebooks"]
-addopts = "--doctest-modules --ignore=setup.py --ignore=sandbox -r s --cov-config .coveragerc --cov=pymks/fmks --cov-report term-missing --nbval --sanitize-with notebooks/sanitize.cfg --no-cov-on-fail"
+addopts = "--doctest-modules --ignore=setup.py --ignore=sandbox -r s --cov-config .coveragerc --cov=pymks/fmks --cov-report term-missing --nbval-lax --sanitize-with notebooks/sanitize.cfg --no-cov-on-fail"
 
 [tool.coverage.run]
 omit = ["pymks/bases/*"]

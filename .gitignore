@@ -2,6 +2,9 @@
 ## Python
 #############
 
+# Dask task-graph image emitted by notebook .visualize() calls
+mydask.png
+
 *.py[co]
 
 # Packages

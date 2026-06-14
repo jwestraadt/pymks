@@ -79,3 +79,7 @@ class GenericTransformer(BaseEstimator, TransformerMixin):
           the transformed data
         """
         return self.func(data)
+
+    def __sklearn_is_fitted__(self):
+        """Stateless transformer; always reports as fitted."""
+        return True

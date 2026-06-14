@@ -443,6 +443,10 @@ class TwoPointCorrelation(BaseEstimator, TransformerMixin):
         """Only necessary to make pipelines work"""
         return self
 
+    def __sklearn_is_fitted__(self):
+        """Stateless transformer; always reports as fitted."""
+        return True
+
 
 class FlattenTransformer(BaseEstimator, TransformerMixin):
     """Reshape data ready for a PCA.
@@ -457,8 +461,7 @@ class FlattenTransformer(BaseEstimator, TransformerMixin):
 
     """
 
-    @staticmethod
-    def transform(x_data):
+    def transform(self, x_data):
         """Transform the X data
 
         Args:
@@ -470,3 +473,7 @@ class FlattenTransformer(BaseEstimator, TransformerMixin):
     def fit(self, *_):
         """Only necessary to make pipelines work"""
         return self
+
+    def __sklearn_is_fitted__(self):
+        """Stateless transformer; always reports as fitted."""
+        return True
